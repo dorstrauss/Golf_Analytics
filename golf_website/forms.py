@@ -19,7 +19,8 @@ class GolfUserCreationForm(UserCreationForm):
 
 class GolfUserChangeForm(UserChangeForm):
 
-    sensor_id = forms.CharField()
+    height = forms.IntegerField(required=False)
+    handicap = height = forms.IntegerField(required=False)
 
     class Meta:
         model = GolfUser

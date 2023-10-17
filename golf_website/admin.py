@@ -10,6 +10,7 @@ class GolfUserAdmin(UserAdmin):
     model = GolfUser
     list_display = ['username', 'email', 'sensor_id', 'height', 'handicap', 'player_image']
 
+    # adding the custom fields in the GolfUser model to the admin change panel
     fieldsets = (
         *UserAdmin.fieldsets,
         (
