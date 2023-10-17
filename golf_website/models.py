@@ -7,6 +7,7 @@ from django.db.models.signals import pre_save
 
 class GolfUser(AbstractUser):
 
+    email = models.EmailField(blank=False, unique=True)
     player_image = models.ImageField(default='media/default_image.jpg', upload_to='media/players_images/')
     height = models.IntegerField(null=True, validators=[MinValueValidator(100), MaxValueValidator(250)])
     handicap = models.IntegerField(null=True, validators=[MinValueValidator(0), MaxValueValidator(36)])

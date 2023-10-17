@@ -17,9 +17,10 @@ class GolfUserCreationForm(UserCreationForm):
         fields = ('first_name', 'last_name', 'email', 'sensor_id', 'height', 'handicap', 'player_image')
 
 
-
 class GolfUserChangeForm(UserChangeForm):
+
+    sensor_id = forms.CharField()
 
     class Meta:
         model = GolfUser
-        fields = ("username", "email")
+        fields = ('first_name', 'last_name', 'email', 'sensor_id', 'height', 'handicap', 'player_image')

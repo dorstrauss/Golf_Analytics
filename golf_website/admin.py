@@ -8,7 +8,17 @@ class GolfUserAdmin(UserAdmin):
     add_form = GolfUserCreationForm
     form = GolfUserChangeForm
     model = GolfUser
-    list_display = ["email", "username"]
+    list_display = ['username', 'email', 'sensor_id', 'height', 'handicap', 'player_image']
+
+    fieldsets = (
+        *UserAdmin.fieldsets,
+        (
+            'Custom Fields',
+            {
+                'fields': ('sensor_id', 'player_image', 'height', 'handicap'),
+            },
+        ),
+    )
 
 
 admin.site.register(GolfUser, GolfUserAdmin)
