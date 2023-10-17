@@ -6,7 +6,8 @@ class GolfUserCreationForm(UserCreationForm):
 
     class Meta:
         model = GolfUser
-        fields = ("username", "email")
+        fields = ('first_name', 'last_name', 'email', 'sensor_id')
+
 
 
 class GolfUserChangeForm(UserChangeForm):
