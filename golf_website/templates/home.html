@@ -1,9 +1,16 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
 {% if user.is_authenticated %}
   Hi {{ user.username }}!
   <p><a href="{% url 'logout' %}">Log Out</a></p>
+    <style>
+        body {
+            background-image: url("{% static 'images/Golf-Analytics logo.png' %}");
+            background-size: cover;
+        }
+    </style>
 {% else %}
   <p>You are not logged in</p>
   <a href="{% url 'login' %}">Log In</a> |
