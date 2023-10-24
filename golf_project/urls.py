@@ -20,6 +20,8 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.views.generic.base import TemplateView
 from golf_website.views import SignUpView
+import threading
+from golf_website.sensors_logic.MQTT import start_listening
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,3 +29,6 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name="home.html"), name="home"),
     path('', include('django.contrib.auth.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+listener_thread = threading.Thread(target=start_listening)
+listener_thread.start()
