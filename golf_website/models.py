@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -23,3 +25,14 @@ class GolfUser(AbstractUser):
 @receiver(pre_save, sender=GolfUser)
 def fill_username(sender, instance, **kwargs):
     instance.username = instance.first_name + '_' + instance.last_name
+
+
+class Swing(models.Model):
+
+    user = models.ForeignKey(GolfUser, on_delete=models.CASCADE)
+    swing_time = models.DateTimeField(default=datetime.datetime.now())
+    distance = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(10000)])
+    swing_speed = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(10000)])
+
+    class Meta:
+        unique_together = ('user', 'swing_time')

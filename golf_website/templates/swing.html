@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if user.is_authenticated %}
+{% csrf_token %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  function startListening() {
+      $('#listening_text_area').text('Waiting for swing...');
+      var csrftoken = $("[name=csrfmiddlewaretoken]").val();
+      $.ajax({
+          type: 'POST',
+          url: "{% url 'swing_listener' %}",
+          headers: {'X-CSRFToken': csrftoken},
+          success: function (response) {
+              $('#loading-listening_text').hide();
+              $('#swings_results_area').text('Swing distance: ' + response.distance);
+          }
+      });
+  }
+</script>
+<button id="record_swing_btn" class="btn btn-warning" onclick="startListening()">Record swing</button>
+<p1 id="listening_text_area"></p1>
+<p1 id="swings_results_area"></p1>
+
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">Log In</a> |
+  <a href="{% url 'signup' %}">Sign Up</a>
+{% endif %}
+{% endblock %}
