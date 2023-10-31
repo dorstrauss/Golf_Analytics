@@ -13,15 +13,19 @@
           url: "{% url 'swing_listener' %}",
           headers: {'X-CSRFToken': csrftoken},
           success: function (response) {
-              $('#loading-listening_text').hide();
-              $('#swings_results_area').text('Swing distance: ' + response.distance);
+              $('#listening_text_area').hide();
+              $('#swings_distance_area').text('Swing distance: ' + response.distance + ' meters.');
+              $('#swings_speed_area').text('Swing speed: ' + response.swing_speed + ' meters per second.');
           }
       });
   }
 </script>
-<button id="record_swing_btn" class="btn btn-warning" onclick="startListening()">Record swing</button>
-<p1 id="listening_text_area"></p1>
-<p1 id="swings_results_area"></p1>
+<div style="text-align: center; padding-top: 30px;">
+  <button id="record_swing_btn" class="btn btn-warning" onclick="startListening()" style="display: block; margin: 0 auto 10px;">Record swing</button>
+  <p id="listening_text_area" style="display: block; margin-bottom: 10px;"></p>
+  <p id="swings_distance_area" style="display: block; margin-bottom: 10px; font-weight: bold; font-size: 20px;"></p>
+  <p id="swings_speed_area" style="display: block; margin-bottom: 10px; font-weight: bold; font-size: 20px;"></p>
+</div>
 
 {% else %}
   <p>You are not logged in</p>

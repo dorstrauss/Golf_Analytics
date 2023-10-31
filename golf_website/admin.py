@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from golf_website.forms import GolfUserCreationForm, GolfUserChangeForm
-from golf_website.models import GolfUser
+from golf_website.models import GolfUser, Swing
 
 
 class GolfUserAdmin(UserAdmin):
@@ -23,4 +23,4 @@ class GolfUserAdmin(UserAdmin):
 
 
 admin.site.register(GolfUser, GolfUserAdmin)
-
+admin.site.register(Swing)

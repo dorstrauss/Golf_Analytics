@@ -22,9 +22,9 @@ class GolfUser(AbstractUser):
         return '{first_name} {last_name}'.format(first_name=self.first_name, last_name=self.last_name)
 
 
-@receiver(pre_save, sender=GolfUser)
-def fill_username(sender, instance, **kwargs):
-    instance.username = instance.first_name + '_' + instance.last_name
+# @receiver(pre_save, sender=GolfUser)
+# def fill_username(sender, instance, **kwargs):
+#     instance.username = instance.first_name + '_' + instance.last_name
 
 
 class Swing(models.Model):
@@ -36,3 +36,6 @@ class Swing(models.Model):
 
     class Meta:
         unique_together = ('user', 'swing_time')
+
+    def __str__(self):
+        return f"{self.user} {self.swing_time}"

@@ -40,5 +40,5 @@ def calculate_trajectory_data(x_velocity, y_velocity, z_velocity):
     distance = horizontal_velocity*flight_time
     swing_speed = math.sqrt(horizontal_velocity**2 + y_velocity**2)
 
-    return {'distance': distance, 'swing_speed': swing_speed}
+    return {'distance': round(distance, 1), 'swing_speed': round(swing_speed, 1)}
 

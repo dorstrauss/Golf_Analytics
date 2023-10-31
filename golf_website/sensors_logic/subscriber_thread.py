@@ -33,10 +33,8 @@ class MQTTSubscriberThread(threading.Thread):
         subscriber.disconnect()
 
     def on_message(self, receiver, userdata, message):
-        print("Received message")
         decoded_message = json.loads(message.payload)
         self.messages.append(decoded_message)
         if decoded_message['NOTE'] == 'HIT':
-            print("Received last message")
             self.swing_results = analyze_swing_data(self.messages)
             self.event.set()

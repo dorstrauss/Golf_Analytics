@@ -32,7 +32,7 @@ def swing_listener(request):
     subscriber_thread.join()
     swing_results = subscriber_thread.swing_results
     try:
-        Swing(user=request.user, distance=swing_results['distance'], swing_speed=swing_results['swing_speed'])
+        Swing(user=request.user, distance=swing_results['distance'], swing_speed=swing_results['swing_speed']).save()
     except Exception as ex:
         swing_results['error_message'] = handel_db_error(ex)
 
