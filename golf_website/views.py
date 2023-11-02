@@ -35,6 +35,10 @@ def swing_listener(request):
     subscriber_thread.start()
     subscriber_thread.join()
     swing_results = subscriber_thread.swing_results
+
+    if not swing_results:
+        swing_results['swing_timeout'] = True
+        return JsonResponse(swing_results)
     try:
         Swing(user=request.user, distance=swing_results['distance'], swing_speed=swing_results['swing_speed']).save()
     except Exception as ex:

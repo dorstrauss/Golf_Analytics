@@ -5,6 +5,7 @@ from golf_website.sensors_logic.data_anlyzer import analyze_swing_data
 
 
 MQTT_BROKER = 'broker.hivemq.com'
+BROKER_TIMEOUT = 30
 
 
 class MQTTSubscriberThread(threading.Thread):
@@ -15,7 +16,7 @@ class MQTTSubscriberThread(threading.Thread):
         self.client_name = client_name
         self.topic = topic
         self.qos = qos
-        self.swing_results = None
+        self.swing_results = {}
         self.last_message_time = None
         self.messages = list()
         self.event = threading.Event()
@@ -28,7 +29,7 @@ class MQTTSubscriberThread(threading.Thread):
         subscriber.subscribe(self.topic, self.qos)
         print(f"Started listening to: {self.topic}")
         subscriber.loop_start()
-        self.event.wait()  # waiting for all the data to be processed before ending the thread
+        self.event.wait(timeout=BROKER_TIMEOUT)
         subscriber.loop_stop()
         subscriber.disconnect()
 
