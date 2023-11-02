@@ -61,6 +61,11 @@ class SwingHistoryView(LoginRequiredMixin, SingleTableMixin, FilterView):
     def get_queryset(self):
         return Swing.objects.filter(user=self.request.user)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_table_empty'] = len(self.get_queryset()) == 0
+        return context
+
     def get_template_names(self):
         if self.request.htmx:
             template_name = "swings_history_htmx_partial.html"

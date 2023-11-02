@@ -12,6 +12,9 @@
 
 {% block content %}
 
+{% if is_table_empty%}
+<h1 style="padding: 20px;">No swings yet</h1>
+{% else %}
 <h1 style="padding: 20px;">Swings table</h1>
 
     {# Progress indicator #}
@@ -22,4 +25,5 @@
     {# The actual table #}
     {% render_table table %}
 
+{% endif %}
 {% endblock %}
