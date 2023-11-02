@@ -53,11 +53,13 @@ def handel_db_error(exception: Exception):
         return 'Swing distance and speed must be a positive number!'
 
 
-class SwingHistoryView(SingleTableMixin, FilterView):
+class SwingHistoryView(LoginRequiredMixin, SingleTableMixin, FilterView):
     table_class = SwingTable
-    queryset = Swing.objects.all()
     filterset_class = SwingFilter
     paginate_by = 8
+
+    def get_queryset(self):
+        return Swing.objects.filter(user=self.request.user)
 
     def get_template_names(self):
         if self.request.htmx:
