@@ -57,7 +57,7 @@ class SwingHistoryView(SingleTableMixin, FilterView):
     table_class = SwingTable
     queryset = Swing.objects.all()
     filterset_class = SwingFilter
-    paginate_by = 10
+    paginate_by = 8
 
     def get_template_names(self):
         if self.request.htmx:

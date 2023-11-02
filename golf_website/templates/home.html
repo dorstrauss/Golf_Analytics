@@ -1,19 +1,28 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block head %}
+<style>
+    body {
+        background-image: url("{% static 'images/Golf-Analytics logo.png' %}");
+        background-size: cover;
+    }
+
+    .centered-text {
+      text-align: center;
+      color: white;
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+       white-space: nowrap;
+}
+</style>
+
+{% endblock %}
 {% block content %}
-{% if user.is_authenticated %}
-  Hi {{ user.username }}!
-  <p><a href="{% url 'logout' %}">Log Out</a></p>
-    <style>
-        body {
-            background-image: url("{% static 'images/Golf-Analytics logo.png' %}");
-            background-size: cover;
-        }
-    </style>
-{% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">Log In</a> |
-  <a href="{% url 'signup' %}">Sign Up</a>
-{% endif %}
+<p class="centered-text" style="text-align: center; color: white; margin: 0 auto; position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%);">Golf-Analytics is a platform that help golf athletes take there training to the next level!</p>
+
+
 {% endblock %}
