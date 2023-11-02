@@ -27,6 +27,14 @@
         </ul>
         {% endif %}
         {% if user.is_authenticated %}
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link {% if request.resolver_match.url_name == 'swing' %}active{% endif %}" aria-current="page" href="{% url 'swing' %}">Swing</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if request.resolver_match.url_name == 'swings_history' %}active{% endif %}" href="{% url 'swings_history' %}">History</a>
+            </li>
+          </ul>
           <ul class="navbar-nav ms-auto">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
