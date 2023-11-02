@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block head %}
+<script type="text/javascript" src="https://unpkg.com/browse/htmx.org@1.9.6/dist/htmx.min.js" defer></script>
+{% endblock %}
+
+{% load render_table from django_tables2 %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<h1>Swings table</h1>
+
+    {# Progress indicator #}
+    <div class="progress">
+        <div class="indeterminate"></div>
+    </div>
+
+    {# The actual table #}
+    {% render_table table %}
+
+{% endblock %}

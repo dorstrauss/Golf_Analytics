@@ -4,12 +4,15 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.http import JsonResponse
+from django_tables2 import SingleTableMixin
+from django_filters.views import FilterView
 from django.views.generic.edit import CreateView
 from django.views.generic import TemplateView
 from golf_website.forms import GolfUserCreationForm
 from golf_website.models import GolfUser, Swing
 from golf_website.sensors_logic.subscriber_thread import MQTTSubscriberThread, MQTT_BROKER
 from golf_website.tables import SwingTable
+from golf_website.filters import SwingFilter
 
 
 class SignUpView(CreateView):
@@ -50,8 +53,16 @@ def handel_db_error(exception: Exception):
         return 'Swing distance and speed must be a positive number!'
 
 
-@login_required()
-def swings_history(request):
-    queryset = Swing.objects.filter(user=request.user)
-    table = SwingTable(queryset)
-    return render(request, 'swings_history.html', {'table': table})
+class SwingHistoryView(SingleTableMixin, FilterView):
+    table_class = SwingTable
+    queryset = Swing.objects.all()
+    filterset_class = SwingFilter
+    paginate_by = 10
+
+    def get_template_names(self):
+        if self.request.htmx:
+            template_name = "swings_history_htmx_partial.html"
+        else:
+            template_name = "swings_history_htmx.html"
+
+        return template_name
